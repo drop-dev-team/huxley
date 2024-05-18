@@ -13,19 +13,39 @@ class NavigationMenu extends StatelessWidget {
 
     return Scaffold(
       bottomNavigationBar: Obx(
-          () => NavigationBar(
+        () => Theme(
+          data: Theme.of(context).copyWith(
+            navigationBarTheme: NavigationBarThemeData(
+              backgroundColor: Colors.white,
+              indicatorColor: Colors.grey[200],
+              iconTheme: WidgetStateProperty.all(
+                const IconThemeData(color: Colors.black),
+              ),
+              labelTextStyle: WidgetStateProperty.all(
+                const TextStyle(fontSize: 12, color: Colors.black54),
+              ),
+            ),
+          ),
+          child: NavigationBar(
             height: 50,
             elevation: 1,
             selectedIndex: controller.selectedIndex.value,
-            onDestinationSelected: (index) => controller.selectedIndex.value = index,
+            onDestinationSelected: (index) =>
+                controller.selectedIndex.value = index,
             destinations: const [
-              NavigationDestination(icon: Icon(FontAwesomeIcons.houseCircleCheck), label: ''),
-              NavigationDestination(icon: Icon(FontAwesomeIcons.solidCalendarDays), label: ''),
-              NavigationDestination(icon: Icon(FontAwesomeIcons.chartSimple), label: ''),
-              NavigationDestination(icon: Icon(FontAwesomeIcons.magnifyingGlass), label: ''),
-              NavigationDestination(icon: Icon(FontAwesomeIcons.solidComments), label: ''),
+              NavigationDestination(
+                  icon: Icon(FontAwesomeIcons.houseCircleCheck), label: ''),
+              NavigationDestination(
+                  icon: Icon(FontAwesomeIcons.solidCalendarDays), label: ''),
+              NavigationDestination(
+                  icon: Icon(FontAwesomeIcons.chartSimple), label: ''),
+              NavigationDestination(
+                  icon: Icon(FontAwesomeIcons.magnifyingGlass), label: ''),
+              NavigationDestination(
+                  icon: Icon(FontAwesomeIcons.solidComments), label: ''),
             ],
           ),
+        ),
       ),
       body: Obx(() => controller.screen[controller.selectedIndex.value]),
     );
