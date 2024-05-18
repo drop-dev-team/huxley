@@ -1,6 +1,7 @@
 {
-  "@comment": {
-    "description": "Localization for Spanish"
-  },
-  "title" : "Titulo"
+  "appTitle" : "HUXLEY",
+  "seeAllText": "Ver Más",
+  "propertyText": "Hogar",
+  "helloAppBarText": "Hola,",
+  "goodMorningAppBarText": "Buenos día"
 }

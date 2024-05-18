@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -9,15 +10,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 80,
       backgroundColor: Colors.white, // Set the background to white
       elevation: 0, // Remove shadow
-      title: const Padding(
-        padding: EdgeInsets.only(top:8), // Give some top padding to ensure the text does not get cut off
+      title: Padding(
+        padding: const EdgeInsets.only(top:8), // Give some top padding to ensure the text does not get cut off
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min, // Important to keep the column height minimal
           children: [
-            Text("Hello,", style: TextStyle(color: Colors.grey, fontSize: 18)),
-            Text("Good Morning", style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
-            Text("UserName", style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(AppLocalizations.of(context)!.helloAppBarText, style: const TextStyle(color: Colors.grey, fontSize: 18)),
+            Text(AppLocalizations.of(context)!.goodMorningAppBarText, style: const TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
+            const Text("UserName", style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

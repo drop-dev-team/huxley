@@ -1,6 +1,8 @@
 {
-  "@comment": {
-    "description": "Localization for English"
-  },
-  "title" : "Title"
+  "appTitle" : "HUXLEY",
+  "seeAllText": "See All",
+  "propertyText": "Property",
+  "helloAppBarText": "Hello,",
+  "goodMorningAppBarText": "Good Morning"
+
 }

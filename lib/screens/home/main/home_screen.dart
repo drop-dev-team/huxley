@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:huxley/screens/home/constants/home_screen_constants.dart';
 import 'package:huxley/screens/home/container/app_bar.dart';
 import 'package:huxley/screens/home/container/properties_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,50 +10,50 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(), // Custom AppBar already defined
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Image.network(
-              'https://www.creativefabrica.com/wp-content/uploads/2021/03/20/Mountain-logo-Design-Graphics-9785421-1-1-580x435.png', // Replace with your actual logo asset path
-              height: 350, // Set as needed
+      appBar: const MyAppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(
+              HomeScreenConstants.placeHolderLogo,
+              height: 350, // Adjust as needed
+              alignment: Alignment.center,
             ),
-          ),
-          const Center(
-            child: Text(
-              "HUXLEY",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 20), // Space before the property section
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Property",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Text(
+                  AppLocalizations.of(context)!.appTitle,
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    // Navigate to the property listings page
-                  },
-                  child: TextButton(
-                    onPressed: () {  },
-                    child: const Text(
-                      "See All",
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                    ),
-
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                  AppLocalizations.of(context)!.propertyText,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to the property listings page
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.seeAllText,
+                      style: const TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const PropertiesContainer(), // Horizontal list of properties
-        ],
+            const PropertiesContainer(), // Horizontal list of properties
+          ],
+        ),
       ),
     );
   }
