@@ -12,7 +12,20 @@
           "package_name": "xyz.dropdev.huxley"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "516152485670-86mtah71mviiq8nag93dvkh8hgpv8hcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.dropdev.huxley",
+            "certificate_hash": "c54709df4c6787520b04cd6e917e476f46e76a28"
+          }
+        },
+        {
+          "client_id": "516152485670-e7nr7le160sufdniv12mnqkp4v2eqa00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBGW7GfkqwlRCy2dPAcKmbggqpCiZeSQns"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516152485670-e7nr7le160sufdniv12mnqkp4v2eqa00.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "516152485670-rirs4ab8ied9311mv4rlv46kfqnladm8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "xyz.dropdev.huxley"
+              }
+            }
+          ]
         }
       }
     }
