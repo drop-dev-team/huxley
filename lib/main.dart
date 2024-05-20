@@ -2,10 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:huxley/screens/controller/menu/navigation_menu.dart';
+import 'package:get/get.dart';
+import 'package:huxley/screens/auth/login/controller/state_controller.dart';
+import 'package:huxley/screens/auth/login/main/login_main.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'firebase_options.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:io';
 
 void main() async {
@@ -13,8 +14,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  Locale testLocale = const Locale('es', 'ES');
+  Get.put(AuthController());
+  Locale testLocale = const Locale('fr', 'FR');
   bool testMode = true;
 
   runApp(MyApp(locale: testLocale, testMode: testMode));
@@ -83,7 +84,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        '/': (context) => const NavigationMenu(),
+        '/': (context) => LogInScreen(),
       },
     );
   }

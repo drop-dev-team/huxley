@@ -3,5 +3,16 @@
   "seeAllText": "Voir tout",
   "propertyText": "Immobilier",
   "helloAppBarText": "Bonjour,",
-  "goodMorningAppBarText": "Bonne journée"
+  "goodMorningAppBarText": "Bonne journée",
+  "singUpText": "Inscrivez-Vous",
+  "logInText" : "Connectez-Vous",
+  "enterPhoneFieldText" : "Entrez Votre Téléphone...",
+  "enterEmailFieldText" : "Entrez Votre Téléphone Email",
+  "enterPasswordFieldText" : "Saisissez le mot de passe",
+  "continueText" : "Continuer",
+  "loginWithAppleText" : "Connexion avec Apple",
+  "loginWithGoogleText" : "Connexion avec Google",
+  "signUpWithAppleText" : "Regístrate con Apple",
+  "singUpWithGoogleText" : "Regístrate con Google",
+  "dontHaveAnAccountText" : "Vous n'avez pas de compte ?"
 }

@@ -44,7 +44,21 @@ class ResponsiveSizer {
   /// returns the size of a Sub-Title given the context
   /// -> [BuildContext context] parameter returns [double] of size
   double subtitleSize(BuildContext context) {
-    return ResponsiveBreakpoints.of(context).isTablet ? 18 : 24;
+    return ResponsiveBreakpoints.of(context).isMobile ? 18 : 24;
+  }
+
+  double spacingSize(BuildContext context) {
+    return ResponsiveBreakpoints.of(context).isMobile ? 18 : 24;
+  }
+
+  List<double> buttonEdgeInsetsDimensions(BuildContext context){
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return [24, 18];
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return [32, 24]; // Card size for tablets
+    } else {
+      return [40, 32]; // Card size for desktop
+    }
   }
 
 

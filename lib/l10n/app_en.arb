@@ -3,6 +3,16 @@
   "seeAllText": "See All",
   "propertyText": "Property",
   "helloAppBarText": "Hello,",
-  "goodMorningAppBarText": "Good Morning"
-
+  "goodMorningAppBarText": "Good Morning",
+  "singUpText": "Sign Up",
+  "logInText" : "Login In",
+  "enterPhoneFieldText" : "Enter your Phone...",
+  "enterEmailFieldText" : "Enter your Email",
+  "enterPasswordFieldText" : "Enter your Password",
+  "continueText" : "Continue",
+  "loginWithAppleText" : "Log In with Apple",
+  "loginWithGoogleText" : "Log In with Google",
+  "signUpWithAppleText" : "Sign up with Apple",
+  "singUpWithGoogleText" : "Sign up with Google",
+  "dontHaveAnAccountText" : "Don't have an account? "
 }

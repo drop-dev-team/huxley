@@ -3,5 +3,16 @@
   "seeAllText": "Ver Más",
   "propertyText": "Hogar",
   "helloAppBarText": "Hola,",
-  "goodMorningAppBarText": "Buenos días"
+  "goodMorningAppBarText": "Buenos días",
+  "singUpText": "Regístrese",
+  "logInText" : "Iniciar Sesión",
+  "enterPhoneFieldText" : "Ingrese su teléfono...",
+  "enterEmailFieldText" : "Ingrese su Email",
+  "enterPasswordFieldText" : "Ingrese su Contraseña",
+  "continueText" : "Continuar",
+  "loginWithAppleText" : "Iniciar Sesion con Apple",
+  "loginWithGoogleText" : "Iniciar Sesion con Google",
+  "signUpWithAppleText" : "Regístrate con Apple",
+  "singUpWithGoogleText" : "Regístrate con Google",
+  "dontHaveAnAccountText" : "No tiene cuenta registrada? "
 }
