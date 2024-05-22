@@ -5,11 +5,17 @@ class LogoImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: FractionallySizedBox(
-        widthFactor: 0.6,
-        child: Image.asset(
-            'assets/logo.png'), // Ensure the logo asset is in the assets folder
+    return Center(
+      child: Flexible(
+        child: FractionallySizedBox(
+          widthFactor: 0.6,
+          child: Image.network(
+            'https://shop.raceya.fit/wp-content/uploads/2020/11/logo-placeholder.jpg',
+            fit: BoxFit.fill,
+            width: 300,
+            height: 350,
+          ), // Ensure the logo asset is in the assets folder
+        ),
       ),
     );
   }

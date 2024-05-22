@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:huxley/dynamic/layout/responsive_sizer.dart';
 
-import '../controller/state_controller.dart';
+import '../controllers/state_controller.dart';
 
 class ToggleButton extends StatefulWidget {
-  ToggleButton({Key? key}) : super(key: key);
+  final ResponsiveSizer _responsiveSizer = ResponsiveSizer();
+  late Size size; // Custom size for the toggle button
+
+  ToggleButton({Key? key,}) : super(key: key);
 
   @override
   _ToggleButtonState createState() => _ToggleButtonState();
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
-  final AuthController controller = Get.find<AuthController>();
+  final StateController controller = Get.find<StateController>();
   double xPosition = 0; // Initial position of the draggable button
 
   @override
@@ -24,11 +28,12 @@ class _ToggleButtonState extends State<ToggleButton> {
 
   void updateXPosition() {
     // Calculate xPosition based on isEmail value
-    xPosition = controller.isEmail.value ? -0.3 : 0.4;
+    xPosition = controller.isEmail.value ? -0.3 : 0.3;
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.size = widget._responsiveSizer.sliderButtonDimensions(context);
     return GestureDetector(
       onTap: () {
         controller.isEmail.toggle();
@@ -38,7 +43,7 @@ class _ToggleButtonState extends State<ToggleButton> {
         setState(() {
           xPosition += details.primaryDelta! / (context.size!.width / 2);
           // Clamp the xPosition to avoid dragging out of bounds
-          xPosition = xPosition.clamp(-0.3, 0.4);
+          xPosition = xPosition.clamp(-0.3, 0.3);
         });
       },
       onHorizontalDragEnd: (details) {
@@ -56,25 +61,25 @@ class _ToggleButtonState extends State<ToggleButton> {
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
             child: Container(
-              width: 90,  // Width of the inner sliding button
-              height: 34,  // Height of the inner sliding button
-              decoration: BoxDecoration(
-                color: controller.isEmail.value ? Colors.blue : Colors.green,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: controller.isEmail.value ? MainAxisAlignment.start : MainAxisAlignment.end,
-                children: [
-                  Icon(controller.isEmail.value ? FontAwesomeIcons.angleRight : FontAwesomeIcons.angleLeft, color: Colors.white),
-                  const SizedBox(width: 5),
-                  Text(
-                    controller.isEmail.value ? 'Email' : 'Phone',
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              )
+                width: widget.size.width,  // Use custom width from Size
+                height: widget.size.height,  // Use custom height from Size
+                decoration: BoxDecoration(
+                  color: controller.isEmail.value ? Colors.blue : Colors.green,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: controller.isEmail.value ? MainAxisAlignment.start : MainAxisAlignment.end,
+                  children: [
+                    Icon(controller.isEmail.value ? FontAwesomeIcons.angleRight : FontAwesomeIcons.angleLeft, color: Colors.white),
+                    const SizedBox(width: 5),
+                    Text(
+                      controller.isEmail.value ? 'Email' : 'Phone',
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                )
             ),
           ),
         ],

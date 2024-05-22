@@ -5,14 +5,19 @@
   "helloAppBarText": "Hola,",
   "goodMorningAppBarText": "Buenos días",
   "singUpText": "Regístrese",
-  "logInText" : "Iniciar Sesión",
+  "logInText" : "Inicie Sesión",
+  "signUpText" : "Registrarse",
   "enterPhoneFieldText" : "Ingrese su teléfono...",
   "enterEmailFieldText" : "Ingrese su Email",
   "enterPasswordFieldText" : "Ingrese su Contraseña",
+  "confirmPasswordFieldText" : "Re-Ingrese su Contraseña",
   "continueText" : "Continuar",
   "loginWithAppleText" : "Iniciar Sesion con Apple",
   "loginWithGoogleText" : "Iniciar Sesion con Google",
   "signUpWithAppleText" : "Regístrate con Apple",
   "singUpWithGoogleText" : "Regístrate con Google",
-  "dontHaveAnAccountText" : "No tiene cuenta registrada? "
+  "dontHaveAnAccountText" : "No tiene cuenta registrada? ",
+  "haveAnAccountText" : "Tiene cuenta? ",
+  "googleOnErrorAuth" : "Algo salio mal...",
+  "googleOnErrorAuthText" : "No pudimos determinar la información correctamente... Inténtelo de nuevo."
 }

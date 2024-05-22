@@ -4,6 +4,21 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>GIDClientID</key>
+    <!-- Copied from GoogleService-Info.plist key CLIENT_ID -->
+    <string>516152485670-rirs4ab8ied9311mv4rlv46kfqnladm8.apps.googleusercontent.com</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+    			<string>com.googleusercontent.apps.516152485670-rirs4ab8ied9311mv4rlv46kfqnladm8</string>
+    		</array>
+    	</dict>
+    </array>
 	<key>CFBundleDisplayName</key>
 	<string>Huxley</string>
 	<key>CFBundleExecutable</key>

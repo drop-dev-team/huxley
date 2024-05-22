@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:huxley/screens/auth/login/controller/state_controller.dart';
+import 'package:huxley/screens/auth/login/controllers/auth_controller.dart';
+import 'package:huxley/screens/auth/login/controllers/screen_state_controller.dart';
+import 'package:huxley/screens/auth/login/controllers/state_controller.dart';
 import 'package:huxley/screens/auth/login/main/login_main.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'firebase_options.dart';
@@ -14,8 +16,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(StateController());
   Get.put(AuthController());
-  Locale testLocale = const Locale('fr', 'FR');
+  Get.put(ScreenStateController());
+  Locale testLocale = const Locale('en', 'US');
   bool testMode = true;
 
   runApp(MyApp(locale: testLocale, testMode: testMode));
@@ -36,9 +40,9 @@ class MyApp extends StatelessWidget {
     Locale effectiveLocale = testMode
         ? locale
         : Locale(Platform.localeName.split('_')[0],
-            Platform.localeName.split('_')[1]);
+        Platform.localeName.split('_')[1]);
 
-    return MaterialApp(
+    return GetMaterialApp(
       locale: effectiveLocale,
       supportedLocales: const [
         Locale('en', 'US'),
@@ -59,7 +63,7 @@ class MyApp extends StatelessWidget {
             return supportedLocale;
           }
         }
-        return locale;
+        return supportedLocales.first;
       },
       title: 'Huxley',
       debugShowCheckedModeBanner: false,
@@ -82,10 +86,7 @@ class MyApp extends StatelessWidget {
           const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
       ),
-      initialRoute: "/",
-      routes: {
-        '/': (context) => LogInScreen(),
-      },
+      home: const LogInScreen(), // Use home instead of initialRoute when using GetMaterialApp
     );
   }
 }

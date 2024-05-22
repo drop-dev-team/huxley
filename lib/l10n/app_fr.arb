@@ -6,13 +6,18 @@
   "goodMorningAppBarText": "Bonne journée",
   "singUpText": "Inscrivez-Vous",
   "logInText" : "Connectez-Vous",
+  "signUpText" : "s'inscrire",
   "enterPhoneFieldText" : "Entrez Votre Téléphone...",
   "enterEmailFieldText" : "Entrez Votre Téléphone Email",
   "enterPasswordFieldText" : "Saisissez le mot de passe",
+  "confirmPasswordFieldText" : "Confirmer votre mot de passe",
   "continueText" : "Continuer",
   "loginWithAppleText" : "Connexion avec Apple",
   "loginWithGoogleText" : "Connexion avec Google",
   "signUpWithAppleText" : "Regístrate con Apple",
   "singUpWithGoogleText" : "Regístrate con Google",
-  "dontHaveAnAccountText" : "Vous n'avez pas de compte ?"
+  "dontHaveAnAccountText" : "Vous n'avez pas de compte ?",
+  "haveAnAccountText" : "Vous avez un compte ? ",
+  "googleOnErrorAuth" : "Quelque chose s'est mal passé...",
+  "googleOnErrorAuthText" : "Nous n'avons pas pu déterminer qui vous êtes... Veuillez réessayer"
 }

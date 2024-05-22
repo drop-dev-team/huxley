@@ -5,14 +5,19 @@
   "helloAppBarText": "Hello,",
   "goodMorningAppBarText": "Good Morning",
   "singUpText": "Sign Up",
-  "logInText" : "Login In",
+  "logInText" : "Log In",
+  "signUpText" : "Sign Up",
   "enterPhoneFieldText" : "Enter your Phone...",
   "enterEmailFieldText" : "Enter your Email",
   "enterPasswordFieldText" : "Enter your Password",
+  "confirmPasswordFieldText" : "Confirm your Password",
   "continueText" : "Continue",
-  "loginWithAppleText" : "Log In with Apple",
-  "loginWithGoogleText" : "Log In with Google",
+  "loginWithAppleText" : "Sign In with Apple",
+  "loginWithGoogleText" : "Sign In with Google",
   "signUpWithAppleText" : "Sign up with Apple",
   "singUpWithGoogleText" : "Sign up with Google",
-  "dontHaveAnAccountText" : "Don't have an account? "
+  "dontHaveAnAccountText" : "Don't have an account? ",
+  "haveAnAccountText" : "Have an account? ",
+  "googleOnErrorAuth" : "Something went Wrong...",
+  "googleOnErrorAuthText" : "We could't determine who you are... Please try again"
 }

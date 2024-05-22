@@ -29,12 +29,11 @@ class ResponsiveSizer {
   /// returns the size of a Title given the context
   /// -> [BuildContext context] parameter returns [double] of size
   double titleSize(BuildContext context) {
-
     if (ResponsiveBreakpoints.of(context).isTablet) {
       return 28; // Title size for tablets
     } else if (ResponsiveBreakpoints.of(context).isDesktop) {
       return 30; // Title size for desktop
-    } else if (ResponsiveBreakpoints.of(context).isMobile){
+    } else if (ResponsiveBreakpoints.of(context).isMobile) {
       return 40; // Default title size for mobile
     } else {
       return 20;
@@ -47,20 +46,90 @@ class ResponsiveSizer {
     return ResponsiveBreakpoints.of(context).isMobile ? 18 : 24;
   }
 
+  List<double> textInputDimensions(BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return [300, 50];
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return [32, 24];
+    } else {
+      return [400, 35];
+    }
+  }
+
+  Size phoneNumberInputDimensions(BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return const Size(300, 80);
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return const Size(100, 80);
+    } else {
+      return const Size(400, 80);
+    }
+  }
+
+
+  Size buttonDimensions(BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return const Size(200, 50);
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return const Size(100, 50);
+    } else {
+      return const Size(400, 50);
+    }
+  }
+
+  Size sliderButtonDimensions(BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return const Size(100, 50);
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return const Size(100, 50);
+    } else {
+      return const Size(120, 50);
+    }
+  }
+
+  Size authButtonDimensions(BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return const Size(300, 50);
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return const Size(100, 50);
+    } else {
+      return const Size(350, 50);
+    }
+  }
+
+  Size orDividerSize(BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return const Size(300, 50);
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return const Size(100, 20);
+    } else {
+      return const Size(350, 50);
+    }
+  }
+
   double spacingSize(BuildContext context) {
     return ResponsiveBreakpoints.of(context).isMobile ? 18 : 24;
   }
 
-  List<double> buttonEdgeInsetsDimensions(BuildContext context){
+  List<double> buttonEdgeInsetsDimensions(BuildContext context) {
     if (ResponsiveBreakpoints.of(context).isMobile) {
       return [24, 18];
     } else if (ResponsiveBreakpoints.of(context).isTablet) {
-      return [32, 24]; // Card size for tablets
+      return [32, 24];
     } else {
-      return [40, 32]; // Card size for desktop
+      return [40, 20];
     }
   }
 
+  double popoverListHeight (BuildContext context) {
+    if (ResponsiveBreakpoints.of(context).isMobile) {
+      return 50; // Card size for mobile
+    } else if (ResponsiveBreakpoints.of(context).isTablet) {
+      return 55; // Card size for tablets
+    } else {
+      return 100; // Card size for desktop
+    }
+  }
 
   /// returns the size of a normal text given the context
   /// -> [BuildContext] [context] parameter returns [double] of size
