@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:huxley/screens/home/container/user_circular_avatar_container.dart';
-import 'package:popover/popover.dart';
-
-import '../widgets/menu_items.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? userName;
