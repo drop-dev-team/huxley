@@ -16,7 +16,7 @@ class HomeScreenBlueprint extends StatelessWidget {
 
     return Scaffold(
       appBar: MyAppBar(
-        userName: authController.user.value?.displayName ?? "Guest",
+        userName: authController.user.value?.displayName ?? "",
         photoURL: authController.user.value?.photoURL,
       ),
       body: LayoutBuilder(
@@ -29,7 +29,7 @@ class HomeScreenBlueprint extends StatelessWidget {
               child: const IntrinsicHeight(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     LogoImageWidget(),
                     HuxleyAppTitle(),

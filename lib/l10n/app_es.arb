@@ -21,5 +21,8 @@
   "googleOnErrorAuth" : "Algo salio mal...",
   "googleOnErrorAuthText" : "No pudimos determinar la información correctamente... Inténtelo de nuevo.",
   "meUserOptionText" : "Cuenta",
-  "logOutUserText" : "Cerrar sesión"
+  "logOutUserText" : "Cerrar sesión",
+  "errorSignInEmailAndPassword" : "Su correo electrónico o contraseña son incorrectos... Inténtelo de nuevo",
+  "errorSingUpWithEmailAndPassword" : "Algo salio mal...intente mas tarde",
+  "passwordMismatchError" : "The passwords you provided do not match please check them and try again..."
 }

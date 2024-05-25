@@ -8,14 +8,12 @@ class LogoImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Flexible(
-        child: FractionallySizedBox(
-          widthFactor: 0.6,
-          child: Image.network(
-            HomeScreenConstants.placeHolderLogo,
-            fit: BoxFit.fill,
-          ), // Ensure the logo asset is in the assets folder
-        ),
+      child: FractionallySizedBox(
+        widthFactor: 0.6,
+        child: Image.network(
+          HomeScreenConstants.placeHolderLogo,
+          fit: BoxFit.fill,
+        ), 
       ),
     );
   }

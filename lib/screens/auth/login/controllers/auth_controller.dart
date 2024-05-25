@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import '../../../../services/Firebase/auth_service.dart';
 
@@ -29,7 +32,7 @@ class AuthController extends GetxController {
   }
 
   void signInWithGoogle(
-      {required VoidCallback onSuccess, required VoidCallback onError}) async {
+      {required VoidCallback onSuccess, required VoidCallback onError, required BuildContext context}) async {
     isLoading(true);
     try {
       user.value = await _authService.signInWithGoogle();
@@ -40,9 +43,11 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       onError(); // Call onError if an exception occurs
+      if (!context.mounted) return;
       Get.snackbar(
-        'Error',
-        'Something went wrong, please try again',
+
+        AppLocalizations.of(context)!.googleOnErrorAuth,
+        AppLocalizations.of(context)!.googleOnErrorAuthText,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:huxley/screens/auth/login/controllers/text_editing_controller.dart';
 import 'package:huxley/screens/auth/login/widgets/hyper_link_routing_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../dynamic/layout/responsive_sizer.dart';
@@ -15,6 +16,10 @@ import '../widgets/image_logo_widget.dart';
 import '../widgets/or_divider_widget.dart';
 
 class LogInScreenBluePrint extends StatefulWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final ResponsiveSizer responsiveSizer = ResponsiveSizer();
   final ScreenStateController screenStateController =
       Get.find<ScreenStateController>();
@@ -59,21 +64,77 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               SizedBox(height: widget.responsiveSizer.spacingSize(context)),
               InputFieldWrapper(),
               SizedBox(height: widget.responsiveSizer.spacingSize(context)),
-              ContinueButtonWidget(),
+
+
+              ContinueButtonWidget(
+                onPressed: () {
+                  if (widget.screenStateController.isSignUp.value) {
+                    // Sign-up scenario
+                    var controller = Get.find<TextEditingWidgetController>();  // Using Get.find() to get the initialized controller
+                    if (controller.confirmPasswordController?.text == controller.passwordController.text) {
+                      // If the passwords match, attempt to sign up
+                      _authController.instance.signUpWithEmailAndPassword(
+                        controller.emailController.text,
+                        controller.passwordController.text,
+                      ).then((userCredential) {
+                        // On successful sign-up, navigate to the NavigationMenu
+                        Get.offAll(() => const NavigationMenu());
+                      }).catchError((error) {
+                        // Handle errors during sign-up
+                        Get.snackbar(
+                          "Error",
+                          AppLocalizations.of(context)!.errorSingUpWithEmailAndPassword,
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        return null;  // Return null if this is acceptable
+                      });
+                    } else {
+                      // If the passwords do not match, show an error snackbar
+                      Get.snackbar(
+                        "Error",
+                        AppLocalizations.of(context)!.passwordMismatchError,
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    }
+                  } else {
+                    // Login scenario
+                    var controller = Get.find<TextEditingWidgetController>();  // Using Get.find() to get the initialized controller
+                    _authController.instance.signInWithEmailAndPassword(
+                      controller.emailController.text,
+                      controller.passwordController.text,
+                    ).then((userCredential) {
+                      // Successfully logged in
+                      Get.offAll(() => const NavigationMenu());  // Navigate to the NavigationMenu
+                    }).catchError((error) {
+                      // Handle errors during login
+                      Get.snackbar(
+                        "Error",
+                        AppLocalizations.of(context)!.errorSignInEmailAndPassword,
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    });
+                  }
+                },
+              )
+
+
+
+              ,
               OrDividerWidget(),
               AuthButtonWrapperWidget(
                 onPressed: () {
                   _authController.signInWithGoogle(
-                    onSuccess: () {
-                      Get.offAll(() =>
-                          const NavigationMenu()); // Navigate without back option
-                    },
-                    onError: () {
-                      Get.snackbar(
-                          AppLocalizations.of(context)!.googleOnErrorAuth,
-                          AppLocalizations.of(context)!.googleOnErrorAuthText);
-                    },
-                  );
+                      onSuccess: () {
+                        Get.offAll(() =>
+                            const NavigationMenu()); // Navigate without back option
+                      },
+                      onError: () {
+                        Get.snackbar(
+                            AppLocalizations.of(context)!.googleOnErrorAuth,
+                            AppLocalizations.of(context)!
+                                .googleOnErrorAuthText);
+                      },
+                      context: context);
                 },
                 icon: Image.asset('assets/logos/g-logo.png',
                     width: 28, height: 28),
@@ -85,6 +146,7 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               ),
               SizedBox(height: widget.responsiveSizer.spacingSize(context)),
               AuthButtonWrapperWidget(
+                // todo Sign Up and In with Apple
                 onPressed: () => print("Sign in with Apple"),
                 icon: const Icon(FontAwesomeIcons.apple,
                     color: Colors.white, size: 28),
@@ -106,8 +168,6 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
                 onTap: () => setState(() {
                   widget.screenStateController.isSignUp.value = !widget
                       .screenStateController.isSignUp.value; // Toggle the state
-                  print(
-                      "Toggle to ${widget.screenStateController.isSignUp.value ? 'Sign Up' : 'Log In'}");
                 }),
               ),
             ],

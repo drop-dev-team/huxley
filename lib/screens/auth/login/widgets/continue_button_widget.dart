@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:huxley/dynamic/layout/responsive_sizer.dart';
 
+import '../controllers/screen_state_controller.dart';
+
 class ContinueButtonWidget extends StatelessWidget {
 
   final ResponsiveSizer _responsiveSizer = ResponsiveSizer();
-  ContinueButtonWidget({super.key});
+  final VoidCallback onPressed;
+
+  ContinueButtonWidget({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          print("Continue button");
+          onPressed();
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
