@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 import '../../../../services/Firebase/auth_service.dart';
 
@@ -20,7 +18,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Attach a listener to FirebaseAuth instance to handle real-time auth changes
+
     _authService.auth.authStateChanges().listen((User? user) {
       if (user != null) {
         this.user.value = user;
@@ -32,20 +30,21 @@ class AuthController extends GetxController {
   }
 
   void signInWithGoogle(
-      {required VoidCallback onSuccess, required VoidCallback onError, required BuildContext context}) async {
+      {required VoidCallback onSuccess,
+      required VoidCallback onError,
+      required BuildContext context}) async {
     isLoading(true);
     try {
       user.value = await _authService.signInWithGoogle();
       if (user.value != null) {
-        onSuccess(); // Call onSuccess if the user is successfully retrieved
+        onSuccess();
       } else {
-        onError(); // Call onError if no user is returned
+        onError();
       }
     } catch (e) {
-      onError(); // Call onError if an exception occurs
+      onError();
       if (!context.mounted) return;
       Get.snackbar(
-
         AppLocalizations.of(context)!.googleOnErrorAuth,
         AppLocalizations.of(context)!.googleOnErrorAuthText,
         snackPosition: SnackPosition.BOTTOM,
@@ -80,7 +79,8 @@ class AuthController extends GetxController {
     if (await _authService.verifyOTP(otp)) {
       Get.snackbar("Success", "You are successfully logged in!");
     } else {
-      Get.snackbar("Verification Failed", "Invalid OTP entered, please try again.");
+      Get.snackbar(
+          "Verification Failed", "Invalid OTP entered, please try again.");
     }
     isLoading(false);
   }

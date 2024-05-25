@@ -8,21 +8,20 @@ class OrDividerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Safely fetch the size with fallback values
     Size size = _responsiveSizer.orDividerSize(context);
 
-    // Ensure that width and height are within reasonable limits
-    double safeWidth = size.width.clamp(50.0, MediaQuery.of(context).size.width);
-    double safeHeight = size.height.clamp(10.0, 50.0);  // Example range: minimum 10, maximum 50
+    double safeWidth =
+        size.width.clamp(50.0, MediaQuery.of(context).size.width);
+    double safeHeight = size.height.clamp(10.0, 50.0);
 
     return SizedBox(
-      width: size.width ?? safeWidth,
-      height: size.height ?? safeHeight,
+      width: size.width,
+      height: size.height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: safeWidth / 2 - 20, // Allocate half of the width to one divider, minus some padding for the "OR" text
+            width: safeWidth / 2 - 20,
             child: const Divider(
               color: Colors.grey,
               thickness: 1,
@@ -33,7 +32,7 @@ class OrDividerWidget extends StatelessWidget {
             child: Text("OR"),
           ),
           SizedBox(
-            width: safeWidth / 2 - 20, // Same as the first divider
+            width: safeWidth / 2 - 20,
             child: const Divider(
               color: Colors.grey,
               thickness: 1,

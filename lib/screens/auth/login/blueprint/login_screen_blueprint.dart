@@ -31,13 +31,13 @@ class LogInScreenBluePrint extends StatefulWidget {
 }
 
 class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
-  bool isSignUp = false; // Local state to handle toggle
+  bool isSignUp = false; 
   late final AuthController _authController;
 
   @override
   void initState() {
     super.initState();
-    _authController = Get.put(AuthController()); // Initialize controller
+    _authController = Get.put(AuthController()); 
   }
 
   @override
@@ -69,27 +69,27 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               ContinueButtonWidget(
                 onPressed: () {
                   if (widget.screenStateController.isSignUp.value) {
-                    // Sign-up scenario
-                    var controller = Get.find<TextEditingWidgetController>();  // Using Get.find() to get the initialized controller
+                    
+                    var controller = Get.find<TextEditingWidgetController>();  
                     if (controller.confirmPasswordController?.text == controller.passwordController.text) {
-                      // If the passwords match, attempt to sign up
+                      
                       _authController.instance.signUpWithEmailAndPassword(
                         controller.emailController.text,
                         controller.passwordController.text,
                       ).then((userCredential) {
-                        // On successful sign-up, navigate to the NavigationMenu
+                        
                         Get.offAll(() => const NavigationMenu());
                       }).catchError((error) {
-                        // Handle errors during sign-up
+                        
                         Get.snackbar(
                           "Error",
                           AppLocalizations.of(context)!.errorSingUpWithEmailAndPassword,
                           snackPosition: SnackPosition.BOTTOM,
                         );
-                        return null;  // Return null if this is acceptable
+                        return null;  
                       });
                     } else {
-                      // If the passwords do not match, show an error snackbar
+                      
                       Get.snackbar(
                         "Error",
                         AppLocalizations.of(context)!.passwordMismatchError,
@@ -97,16 +97,16 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
                       );
                     }
                   } else {
-                    // Login scenario
-                    var controller = Get.find<TextEditingWidgetController>();  // Using Get.find() to get the initialized controller
+                    
+                    var controller = Get.find<TextEditingWidgetController>();  
                     _authController.instance.signInWithEmailAndPassword(
                       controller.emailController.text,
                       controller.passwordController.text,
                     ).then((userCredential) {
-                      // Successfully logged in
-                      Get.offAll(() => const NavigationMenu());  // Navigate to the NavigationMenu
+                      
+                      Get.offAll(() => const NavigationMenu());  
                     }).catchError((error) {
-                      // Handle errors during login
+                      
                       Get.snackbar(
                         "Error",
                         AppLocalizations.of(context)!.errorSignInEmailAndPassword,
@@ -126,7 +126,7 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
                   _authController.signInWithGoogle(
                       onSuccess: () {
                         Get.offAll(() =>
-                            const NavigationMenu()); // Navigate without back option
+                            const NavigationMenu()); 
                       },
                       onError: () {
                         Get.snackbar(
@@ -146,7 +146,7 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               ),
               SizedBox(height: widget.responsiveSizer.spacingSize(context)),
               AuthButtonWrapperWidget(
-                // todo Sign Up and In with Apple
+                
                 onPressed: () => print("Sign in with Apple"),
                 icon: const Icon(FontAwesomeIcons.apple,
                     color: Colors.white, size: 28),
@@ -167,7 +167,7 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
                     : AppLocalizations.of(context)!.logInText,
                 onTap: () => setState(() {
                   widget.screenStateController.isSignUp.value = !widget
-                      .screenStateController.isSignUp.value; // Toggle the state
+                      .screenStateController.isSignUp.value; 
                 }),
               ),
             ],

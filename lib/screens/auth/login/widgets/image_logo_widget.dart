@@ -8,13 +8,13 @@ class ImageLogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,  // Diameter of the circle
+      width: 200,
       height: 200,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
           image: NetworkImage(AuthConstants.logoURL),
-          fit: BoxFit.cover,  // Ensures the image covers the circle
+          fit: BoxFit.cover,
         ),
       ),
     );

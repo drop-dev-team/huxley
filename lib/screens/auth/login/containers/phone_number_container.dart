@@ -3,19 +3,16 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:huxley/dynamic/layout/responsive_sizer.dart';
-import 'package:flutter/services.dart'; // Import services for TextInputFormatter
+import 'package:flutter/services.dart';
 
 class PhoneNumberInputContainer extends StatelessWidget {
-  final ResponsiveSizer _responsiveSizer =
-      ResponsiveSizer(); // Instance of ResponsiveSizer
+  final ResponsiveSizer _responsiveSizer = ResponsiveSizer();
 
   PhoneNumberInputContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Retrieve the dimensions for the input field from ResponsiveSizer
-    Size fieldSize = _responsiveSizer.phoneNumberInputDimensions(
-        context); // Assume this method exists in your ResponsiveSizer
+    Size fieldSize = _responsiveSizer.phoneNumberInputDimensions(context);
 
     return Center(
       child: SizedBox(
@@ -43,7 +40,7 @@ class PhoneNumberInputContainer extends StatelessWidget {
           },
           keyboardType: TextInputType.phone,
           inputFormatters: [
-            LengthLimitingTextInputFormatter(20), // Allows for up to 20 digits
+            LengthLimitingTextInputFormatter(20),
           ],
         ),
       ),

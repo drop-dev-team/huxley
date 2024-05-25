@@ -8,7 +8,6 @@ class TextEditingWidgetController extends GetxController {
   TextEditingController? confirmPasswordController;
   late TextEditingController phoneNumberController;
 
-  // Reference to the screen state controller
   final ScreenStateController screenStateController = Get.find();
 
   @override
@@ -18,16 +17,13 @@ class TextEditingWidgetController extends GetxController {
     passwordController = TextEditingController();
     phoneNumberController = TextEditingController();
 
-    // Listen to changes in screen state to create or dispose controllers as necessary
     ever(screenStateController.isSignUp, handleSignUpChange);
   }
 
   void handleSignUpChange(bool isSignUp) {
     if (isSignUp) {
-      // If it's a sign-up screen, initialize the confirm password controller
       confirmPasswordController ??= TextEditingController();
     } else {
-      // Dispose of the confirm password controller when switching to login
       confirmPasswordController?.dispose();
       confirmPasswordController = null;
     }
@@ -35,20 +31,16 @@ class TextEditingWidgetController extends GetxController {
 
   @override
   void onClose() {
-    // Dispose of all controllers
     emailController.dispose();
     passwordController.dispose();
-    phoneNumberController
-        .dispose(); // Ensure phoneNumberController is also disposed
+    phoneNumberController.dispose();
     confirmPasswordController?.dispose();
     super.onClose();
   }
 
   bool isSignUpEqualsPasswordConfirm() {
-    return screenStateController.isSignUp.value ? (
-        passwordController.text == confirmPasswordController?.text
-    ) : (
-        false
-    );
+    return screenStateController.isSignUp.value
+        ? (passwordController.text == confirmPasswordController?.text)
+        : (false);
   }
 }

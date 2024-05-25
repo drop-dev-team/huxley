@@ -14,8 +14,8 @@ class InputFieldWrapper extends StatelessWidget {
   final StateController controller = Get.find<StateController>();
   final ScreenStateController screenController =
       Get.find<ScreenStateController>();
-  final TextEditingWidgetController textController = Get.put(
-      TextEditingWidgetController()); // Initialize and get the text controller
+  final TextEditingWidgetController textController =
+      Get.put(TextEditingWidgetController());
 
   InputFieldWrapper({super.key});
 
@@ -50,24 +50,23 @@ class InputFieldWrapper extends StatelessWidget {
             InputTextFieldWidget(
               hintText: AppLocalizations.of(context)!.enterEmailFieldText,
               controller: textController.emailController,
-              // Use the controller from TextEditingWidgetController
               isPassword: false,
             ),
             SizedBox(height: _responsiveSizer.spacingSize(context)),
             InputTextFieldWidget(
               hintText: AppLocalizations.of(context)!.enterPasswordFieldText,
               controller: textController.passwordController,
-              // Use the controller from TextEditingWidgetController
               isPassword: true,
             ),
-            // Conditional field based on sign-up state
             Column(
               children: [
                 SizedBox(height: _responsiveSizer.spacingSize(context)),
-                if (screenController.isSignUp.isTrue)  // Conditional rendering based on the sign-up state
+                if (screenController.isSignUp.isTrue)
                   InputTextFieldWidget(
-                    hintText: AppLocalizations.of(context)!.confirmPasswordFieldText,
-                    controller: textController.confirmPasswordController ?? TextEditingController(),  // Ensure it's not null
+                    hintText:
+                        AppLocalizations.of(context)!.confirmPasswordFieldText,
+                    controller: textController.confirmPasswordController ??
+                        TextEditingController(),
                     isPassword: true,
                   ),
               ],
@@ -77,7 +76,6 @@ class InputFieldWrapper extends StatelessWidget {
   }
 
   Widget phoneField(BuildContext context) {
-    // Correctly fetching the controller instance using Get.find()
     var textController = Get.find<TextEditingWidgetController>();
 
     if (_responsiveSizer.getCurrentPlatform(context) == 'Mobile' ||

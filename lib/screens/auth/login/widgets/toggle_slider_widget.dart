@@ -7,27 +7,27 @@ import '../controllers/state_controller.dart';
 
 class ToggleButton extends StatefulWidget {
   final ResponsiveSizer _responsiveSizer = ResponsiveSizer();
-  late Size size; // Custom size for the toggle button
+  late Size size;
 
-  ToggleButton({Key? key,}) : super(key: key);
+  ToggleButton({super.key,});
 
   @override
-  _ToggleButtonState createState() => _ToggleButtonState();
+  State<ToggleButton> createState() => _ToggleButtonState();
 }
 
 class _ToggleButtonState extends State<ToggleButton> {
   final StateController controller = Get.find<StateController>();
-  double xPosition = 0; // Initial position of the draggable button
+  double xPosition = 0; 
 
   @override
   void initState() {
     super.initState();
-    // Initialize position based on the controller's initial value
+    
     updateXPosition();
   }
 
   void updateXPosition() {
-    // Calculate xPosition based on isEmail value
+    
     xPosition = controller.isEmail.value ? -0.3 : 0.3;
   }
 
@@ -42,12 +42,12 @@ class _ToggleButtonState extends State<ToggleButton> {
       onHorizontalDragUpdate: (details) {
         setState(() {
           xPosition += details.primaryDelta! / (context.size!.width / 2);
-          // Clamp the xPosition to avoid dragging out of bounds
+          
           xPosition = xPosition.clamp(-0.3, 0.3);
         });
       },
       onHorizontalDragEnd: (details) {
-        // Determine the position to snap based on the drag's end
+        
         bool shouldSnapToEmail = xPosition < 0.05;
         if (controller.isEmail.value != shouldSnapToEmail) {
           controller.isEmail.value = shouldSnapToEmail;
@@ -61,8 +61,8 @@ class _ToggleButtonState extends State<ToggleButton> {
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
             child: Container(
-                width: widget.size.width,  // Use custom width from Size
-                height: widget.size.height,  // Use custom height from Size
+                width: widget.size.width,  
+                height: widget.size.height,  
                 decoration: BoxDecoration(
                   color: controller.isEmail.value ? Colors.blue : Colors.green,
                   borderRadius: BorderRadius.circular(20),

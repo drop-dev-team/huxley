@@ -13,7 +13,7 @@ class AuthButtonWrapperWidget extends StatelessWidget {
   AuthButtonWrapperWidget({
     super.key,
     required this.onPressed,
-    required this.icon, // This can now be an Icon or an Image widget
+    required this.icon,
     required this.buttonText,
     this.buttonColor,
     this.textColor,
@@ -24,7 +24,7 @@ class AuthButtonWrapperWidget extends StatelessWidget {
     Size buttonSize = _responsiveSizer.authButtonDimensions(context);
     double fontSize = _responsiveSizer.textSize(context);
 
-    return Center( // Centers the container to prevent stretching
+    return Center(
       child: SizedBox(
         width: buttonSize.width,
         height: buttonSize.height,
@@ -34,19 +34,19 @@ class AuthButtonWrapperWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            padding: EdgeInsets.zero, // No internal padding to control size via Container
+            padding: EdgeInsets.zero,
           ),
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon,
-              SizedBox(width: _responsiveSizer.spacingSize(context)), // Spacing based on responsive sizer
+              SizedBox(width: _responsiveSizer.spacingSize(context)),
               Text(
                 buttonText,
                 style: TextStyle(
                   color: textColor ?? Colors.white,
-                  fontSize: fontSize, // Text size based on responsive sizer
+                  fontSize: fontSize,
                 ),
               ),
             ],
