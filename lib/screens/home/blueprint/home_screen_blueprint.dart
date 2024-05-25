@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huxley/screens/home/container/app_bar.dart';
-import 'package:huxley/screens/home/container/properties_container.dart';
 import '../../auth/login/controllers/auth_controller.dart';
 import '../../auth/login/widgets/logo_image_widget.dart';
 import '../container/properties_app_bar_properties_container.dart';
 import '../widgets/huxley_app_title.dart';
+import '../container/app_bar.dart';
+import '../container/properties_container.dart';
 
 class HomeScreenBlueprint extends StatelessWidget {
   const HomeScreenBlueprint({super.key});
@@ -19,25 +19,22 @@ class HomeScreenBlueprint extends StatelessWidget {
         userName: authController.user.value?.displayName ?? "Guest",
         photoURL: authController.user.value?.photoURL,
       ),
-      body: LayoutBuilder(  // Provides bounds to SingleChildScrollView
+      body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 minHeight: constraints.maxHeight,
               ),
-              child: const IntrinsicHeight(  // Ensures the column attempts to be as tall as its parent
+              child: const IntrinsicHeight(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(  // Makes LogoImageWidget expand to fill the available space
-                      child: LogoImageWidget(),
-                    ),
+                    LogoImageWidget(),
                     HuxleyAppTitle(),
                     PropertiesAppBarPropertiesContainer(),
-                    Expanded(  // Makes PropertiesContainer expand to fill the available space
-                      child: PropertiesContainer(),
-                    ),
+                    PropertiesContainer(),
                   ],
                 ),
               ),

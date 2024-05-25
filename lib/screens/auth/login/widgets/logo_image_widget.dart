@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../home/constants/home_screen_constants.dart';
+
 class LogoImageWidget extends StatelessWidget {
   const LogoImageWidget({super.key});
 
@@ -10,10 +12,8 @@ class LogoImageWidget extends StatelessWidget {
         child: FractionallySizedBox(
           widthFactor: 0.6,
           child: Image.network(
-            'https://shop.raceya.fit/wp-content/uploads/2020/11/logo-placeholder.jpg',
+            HomeScreenConstants.placeHolderLogo,
             fit: BoxFit.fill,
-            width: 300,
-            height: 350,
           ), // Ensure the logo asset is in the assets folder
         ),
       ),

@@ -12,6 +12,8 @@ class AuthController extends GetxController {
   var user = Rxn<User>();
   var verificationID = ''.obs;
 
+  AuthService instance = AuthService.instance;
+
   @override
   void onInit() {
     super.onInit();

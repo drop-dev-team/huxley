@@ -19,5 +19,7 @@
   "dontHaveAnAccountText" : "Don't have an account? ",
   "haveAnAccountText" : "Have an account? ",
   "googleOnErrorAuth" : "Something went Wrong...",
-  "googleOnErrorAuthText" : "We could't determine who you are... Please try again"
+  "googleOnErrorAuthText" : "We could't determine who you are... Please try again",
+  "meUserOptionText" : "Me",
+  "logOutUserText" : "log Out"
 }

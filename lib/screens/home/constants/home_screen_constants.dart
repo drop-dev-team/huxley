@@ -9,4 +9,5 @@
 
 class HomeScreenConstants {
   static String placeHolderLogo = 'https://www.creativefabrica.com/wp-content/uploads/2021/03/20/Mountain-logo-Design-Graphics-9785421-1-1-580x435.png';
+
 }

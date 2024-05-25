@@ -19,5 +19,7 @@
   "dontHaveAnAccountText" : "Vous n'avez pas de compte ?",
   "haveAnAccountText" : "Vous avez un compte ? ",
   "googleOnErrorAuth" : "Quelque chose s'est mal passé...",
-  "googleOnErrorAuthText" : "Nous n'avons pas pu déterminer qui vous êtes... Veuillez réessayer"
+  "googleOnErrorAuthText" : "Nous n'avons pas pu déterminer qui vous êtes... Veuillez réessayer",
+  "meUserOptionText" : "moi",
+  "logOutUserText" : "Se déconnecter"
 }

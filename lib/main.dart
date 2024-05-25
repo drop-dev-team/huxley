@@ -19,7 +19,7 @@ void main() async {
   Get.put(StateController());
   Get.put(AuthController());
   Get.put(ScreenStateController());
-  Locale testLocale = const Locale('fr', 'FR');
+  Locale testLocale = const Locale('en', 'US');
   bool testMode = true;
 
   runApp(MyApp(locale: testLocale, testMode: testMode));

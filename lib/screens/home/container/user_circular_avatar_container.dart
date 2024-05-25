@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:huxley/screens/auth/login/main/login_main.dart';
 import 'package:popover/popover.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../auth/login/controllers/auth_controller.dart';
 import '../widgets/menu_items.dart';
 
 class UserCircularAvatarContainer extends StatelessWidget {
@@ -18,7 +22,13 @@ class UserCircularAvatarContainer extends StatelessWidget {
               "https://avatar.iran.liara.run/public/boy?username=Ash",
         ),
       ),
-      onTap: () {
+      onTap: () async {
+        // Optionally introduce a delay or perform an async operation
+        await Future.delayed(const Duration(milliseconds: 100));  // Adjust time as necessary
+
+        // Check if the widget is still mounted (i.e., the context is still valid)
+        if (!context.mounted) return;
+
         showPopover(
           context: context,
           bodyBuilder: (context) => SizedBox(
@@ -26,16 +36,19 @@ class UserCircularAvatarContainer extends StatelessWidget {
               numberOfItems: 2,
               context: context,
               callbacks: [
-                () => {
-                  // todo User screen navigation Get.to();
+                    () {
+                  // User screen navigation or any other action
+
                 },
-                () => {
-                  // todo AuthController log out
+                    () {
+                  // Handle log out or other actions
+                      AuthController().logout();
+                      Get.to(() => const LogInScreen());
                 }
               ],
-              titles: const [
-                "Me",
-                "Log out"
+              titles: [
+                AppLocalizations.of(context)!.meUserOptionText,
+                AppLocalizations.of(context)!.logOutUserText
               ],
               icons: const [
                 FontAwesomeIcons.userPen,
@@ -44,9 +57,7 @@ class UserCircularAvatarContainer extends StatelessWidget {
             ),
           ),
           width: 150,
-          // Match the width here
-          height: ListItems.totalHeight,
-          // Adjust based on content or screen
+          height: ListItems.getTotalHeight(), // Ensure this is dynamically calculated correctly
           direction: PopoverDirection.bottom,
           backgroundColor: Colors.white.withOpacity(0.5),
           barrierDismissible: true,
@@ -56,6 +67,7 @@ class UserCircularAvatarContainer extends StatelessWidget {
           arrowHeight: 12,
         );
       },
+
     );
   }
 }

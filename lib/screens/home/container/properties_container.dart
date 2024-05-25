@@ -9,37 +9,42 @@ class PropertiesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200, // Adjust height as needed to fit PropertyItem and the "See All" button
+      height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 11, // 10 Property items + 1 "See All" item
+        itemCount: 11,
         itemBuilder: (context, index) {
-          if (index < 10) { // First 10 items are PropertyItems
+          if (index < 10) {
             return const PropertyItem();
-          } else { // The 11th item is the "See All" button
+          } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Center(
                 child: Material(
-                  color: Colors.transparent, // Make Material widget transparent
+                  color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
+                      // todo apply the functioning for nevigation to
+                      // properties screen
                       print("See all from property list tapped");
-                      // Navigate to the "See All" page or perform an action
                     },
-                    splashColor: Colors.grey.withOpacity(0.1), // Customizable splash color
-                    borderRadius: BorderRadius.circular(20), // Circular radius for the splash effect
+                    splashColor: Colors.grey.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(20),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0), // Padding around the splash area
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(
-                            FontAwesomeIcons.locationArrow, size: 40, color: Colors.blue,
+                            FontAwesomeIcons.locationArrow,
+                            size: 40,
+                            color: Colors.blue,
                           ),
                           Text(
                             AppLocalizations.of(context)!.seeAllText,
-                            style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

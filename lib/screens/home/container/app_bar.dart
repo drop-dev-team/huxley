@@ -46,6 +46,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             size: 32,
           ),
           onPressed: () {
+            // todo Search for properties and Widgets that in order
             // Define the action for the search button
           },
         ),

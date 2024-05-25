@@ -19,5 +19,7 @@
   "dontHaveAnAccountText" : "No tiene cuenta registrada? ",
   "haveAnAccountText" : "Tiene cuenta? ",
   "googleOnErrorAuth" : "Algo salio mal...",
-  "googleOnErrorAuthText" : "No pudimos determinar la información correctamente... Inténtelo de nuevo."
+  "googleOnErrorAuthText" : "No pudimos determinar la información correctamente... Inténtelo de nuevo.",
+  "meUserOptionText" : "Cuenta",
+  "logOutUserText" : "Cerrar sesión"
 }

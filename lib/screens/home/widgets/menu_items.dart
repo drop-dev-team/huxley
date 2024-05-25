@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../dynamic/layout/responsive_sizer.dart';
 
 class ListItems extends StatefulWidget {
@@ -31,17 +30,25 @@ class ListItems extends StatefulWidget {
 class _ListItemsState extends State<ListItems> {
   late double itemHeight;
   static const double dividerHeight = 1.0;
+  bool isLayoutCompleted = false;
 
   @override
   void initState() {
     super.initState();
     itemHeight = ResponsiveSizer().popoverListHeight(widget.context);
-    ListItems.totalHeight = (itemHeight * widget.numberOfItems) + (dividerHeight + 10);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
+          isLayoutCompleted = true;
+          ListItems.totalHeight = (itemHeight * widget.numberOfItems) + ((widget.numberOfItems - 1) * dividerHeight);
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return isLayoutCompleted ? SizedBox(
       height: ListItems.totalHeight,
       child: ListView.separated(
         physics: const NeverScrollableScrollPhysics(),
@@ -52,7 +59,7 @@ class _ListItemsState extends State<ListItems> {
           return _buildListItem(widget.titles[index], widget.icons[index], widget.callbacks[index]);
         },
       ),
-    );
+    ) : const SizedBox(); // Optionally return a loading spinner or similar widget here
   }
 
   Widget _buildListItem(String title, IconData icon, VoidCallback callback) {
