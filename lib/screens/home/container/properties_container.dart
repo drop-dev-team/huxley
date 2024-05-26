@@ -15,7 +15,12 @@ class PropertiesContainer extends StatelessWidget {
         itemCount: 11,
         itemBuilder: (context, index) {
           if (index < 10) {
-            return const PropertyItem();
+            return PropertyItem(
+              onTap: () => {
+                // todo navigation of the property
+                print("Tapped ${index}nth item")
+              },
+            );
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),

@@ -15,27 +15,36 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
       extendBody: true, // Ensure the body extends behind the navigation bar
       bottomNavigationBar: Obx(
-            () => ClipRect(
+        () => ClipRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX:10, sigmaY: 50), // Apply blur
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 50), // Apply blur
             child: NavigationBar(
-              backgroundColor: Colors.transparent.withOpacity(0.1), // Semi-transparent
-              indicatorColor:Colors.grey[200],
+              backgroundColor: Colors.transparent.withOpacity(0.1),
+              // Semi-transparent
+              indicatorColor: Colors.grey[200],
               height: 75,
-              labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected, // Adjust label behavior
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              // Adjust label behavior
               selectedIndex: controller.selectedIndex.value,
-              onDestinationSelected: controller.selectedIndex.call,
+              onDestinationSelected: (int index) {
+                controller.selectedIndex.value = index;
+              },
               destinations: const [
                 NavigationDestination(
-                    icon: Icon(FontAwesomeIcons.houseCircleCheck), label: 'Home'),
+                    icon: Icon(FontAwesomeIcons.houseCircleCheck),
+                    label: 'Home'),
                 NavigationDestination(
-                    icon: Icon(FontAwesomeIcons.solidCalendarDays), label: 'Calendar'),
+                    icon: Icon(FontAwesomeIcons.solidCalendarDays),
+                    label: 'Calendar'),
                 NavigationDestination(
                     icon: Icon(FontAwesomeIcons.chartSimple), label: 'Stats'),
                 NavigationDestination(
-                    icon: Icon(FontAwesomeIcons.magnifyingGlass), label: 'Search'),
+                    icon: Icon(FontAwesomeIcons.magnifyingGlass),
+                    label: 'Search'),
                 NavigationDestination(
-                    icon: Icon(FontAwesomeIcons.solidComments), label: 'Messages'),
+                    icon: Icon(FontAwesomeIcons.solidComments),
+                    label: 'Messages'),
               ],
             ),
           ),

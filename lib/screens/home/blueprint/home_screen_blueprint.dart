@@ -15,10 +15,7 @@ class HomeScreenBlueprint extends StatelessWidget {
     final AuthController authController = Get.find<AuthController>();
 
     return Scaffold(
-      appBar: MyAppBar(
-        userName: authController.user.value?.displayName ?? "",
-        photoURL: authController.user.value?.photoURL,
-      ),
+      appBar: MyAppBar(),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(

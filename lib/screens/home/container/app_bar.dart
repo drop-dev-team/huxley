@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:huxley/screens/home/container/user_circular_avatar_container.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? userName;
-  final String? photoURL;
+import '../../controller/controller/user_controller.dart';
 
-  const MyAppBar({super.key, required this.userName, this.photoURL});
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+
+  final UserController _userController = UserController();
+
+  MyAppBar({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                     color: Colors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.bold)),
-            Text(userName?.split(" ")[0] ?? '',
+            Text(_userController.user.value?.displayName ?? "",
                 style: const TextStyle(
                     color: Colors.black,
                     fontSize: 24,
@@ -61,7 +63,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const SizedBox(width: 8),
         // todo Circular Avatar
-        UserCircularAvatarContainer(photoURL: photoURL,),
+        UserCircularAvatarContainer(photoURL: _userController.user.value?.photoURL,),
         // Adds spacing between icon and avatar,
         const SizedBox(width: 16),
         // Optional: adds spacing at the end of the app bar

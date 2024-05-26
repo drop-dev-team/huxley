@@ -7,7 +7,6 @@ class ListItems extends StatefulWidget {
   final List<VoidCallback> callbacks; // List of callbacks for each item
   final List<String> titles; // List of titles for each item
   final List<IconData> icons; // List of icons for each item
-  static double totalHeight = 0;
 
   const ListItems({
     super.key,
@@ -16,15 +15,11 @@ class ListItems extends StatefulWidget {
     required this.callbacks,
     required this.titles,
     required this.icons,
-  })  : assert(numberOfItems > 1, 'There must be more than one item.'),
-        assert(titles.length == numberOfItems && icons.length == numberOfItems, 'Titles and icons lists must match the number of items.');
+  })  : assert(numberOfItems > 0, 'There must be at least one item.'),
+        assert(titles.length == numberOfItems && icons.length == numberOfItems && callbacks.length == numberOfItems, 'Titles, icons, and callbacks lists must all match the number of items.');
 
   @override
   State<ListItems> createState() => _ListItemsState();
-
-  static double getTotalHeight() {
-    return totalHeight;
-  }
 }
 
 class _ListItemsState extends State<ListItems> {
@@ -40,7 +35,6 @@ class _ListItemsState extends State<ListItems> {
       if (mounted) {
         setState(() {
           isLayoutCompleted = true;
-          ListItems.totalHeight = (itemHeight * widget.numberOfItems) + ((widget.numberOfItems - 1) * dividerHeight);
         });
       }
     });
@@ -48,17 +42,19 @@ class _ListItemsState extends State<ListItems> {
 
   @override
   Widget build(BuildContext context) {
-    return isLayoutCompleted ? SizedBox(
-      height: ListItems.totalHeight,
-      child: ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.zero,
-        itemCount: widget.numberOfItems,
-        separatorBuilder: (_, __) => const Divider(height: dividerHeight),
-        itemBuilder: (BuildContext context, int index) {
+    return isLayoutCompleted ? ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      itemCount: widget.numberOfItems,
+      separatorBuilder: (_, __) => const Divider(height: dividerHeight),
+      itemBuilder: (BuildContext context, int index) {
+        if (index < widget.titles.length && index < widget.icons.length && index < widget.callbacks.length) {
           return _buildListItem(widget.titles[index], widget.icons[index], widget.callbacks[index]);
-        },
-      ),
+        } else {
+          // Optionally log an error or handle this case as needed
+          return const SizedBox.shrink();
+        }
+      },
     ) : const SizedBox(); // Optionally return a loading spinner or similar widget here
   }
 

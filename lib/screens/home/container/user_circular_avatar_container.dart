@@ -33,7 +33,7 @@ class UserCircularAvatarContainer extends StatelessWidget {
           context: context,
           bodyBuilder: (context) => SizedBox(
             child: ListItems(
-              numberOfItems: 2,
+              numberOfItems: 3,
               context: context,
               callbacks: [
                     () {
@@ -44,20 +44,26 @@ class UserCircularAvatarContainer extends StatelessWidget {
                   // Handle log out or other actions
                       AuthController().logout();
                       Get.to(() => const LogInScreen());
+                },
+                    () {
+                  // User support option
+
                 }
               ],
               titles: [
                 AppLocalizations.of(context)!.meUserOptionText,
-                AppLocalizations.of(context)!.logOutUserText
+                AppLocalizations.of(context)!.logOutUserText,
+                "Support and Help"
               ],
               icons: const [
                 FontAwesomeIcons.userPen,
-                FontAwesomeIcons.arrowRightFromBracket
+                FontAwesomeIcons.arrowRightFromBracket,
+                FontAwesomeIcons.circleInfo
               ],
             ),
           ),
-          width: 150,
-          height: ListItems.getTotalHeight(), // Ensure this is dynamically calculated correctly
+          width: 180,
+          height: 180,
           direction: PopoverDirection.bottom,
           backgroundColor: Colors.white.withOpacity(0.5),
           barrierDismissible: true,
