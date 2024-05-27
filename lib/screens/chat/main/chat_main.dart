@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huxley/screens/chat/blueprint/chat_blueprint.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -6,11 +7,8 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat Screen Huxley'),
-      ),
-      body: const Center(
-        child: Text('Chat Screen'),
+      body: SafeArea(
+          child: ChatBlueprint()
       ),
     );
   }
