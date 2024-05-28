@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:huxley/screens/chat/models/user/user_model.dart';
 
 class ChatCardItem extends StatelessWidget {
   final String name;
   final String message;
   final String time;
   final int unreadCount;
-  final VoidCallback onTap;  // Function to execute on tap
+  final VoidCallback onTap;
 
   const ChatCardItem({
     super.key,
@@ -13,7 +14,7 @@ class ChatCardItem extends StatelessWidget {
     required this.message,
     required this.time,
     this.unreadCount = 0,
-    required this.onTap, // Require the onTap function when initializing
+    required this.onTap,
   });
 
   @override

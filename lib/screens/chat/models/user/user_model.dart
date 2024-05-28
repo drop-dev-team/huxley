@@ -9,6 +9,7 @@ class UserModel {
   final String? profilePictureURL;
   final Timestamp? lastSeen;
   final List<String> chats;
+  final List<String> contactUids;
 
   UserModel({
     required this.id,
@@ -19,6 +20,7 @@ class UserModel {
     required this.profilePictureURL,
     required this.lastSeen,
     required this.chats,
+    required this.contactUids,
   });
 
   Map<String, dynamic> toMap() {
@@ -30,20 +32,21 @@ class UserModel {
       'isActive': isActive,
       'profilePictureURL': profilePictureURL,
       'lastSeen': lastSeen,
-      'chats' : chats
+      'chats': chats,
+      'contactUids': contactUids
     };
   }
 
   factory UserModel.fromDatabaseJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
-      username: json['username'],
-      email: json['email'],
-      phoneNumber: json['phoneNumber'],
-      isActive: json['isActive'],
-      profilePictureURL: json['profilePictureURL'],
-      lastSeen: json['lastSeen'],
-      chats: json["chats"]
-    );
+        id: json['id'],
+        username: json['username'],
+        email: json['email'],
+        phoneNumber: json['phoneNumber'],
+        isActive: json['isActive'],
+        profilePictureURL: json['profilePictureURL'],
+        lastSeen: json['lastSeen'],
+        chats: json["chats"],
+        contactUids: json['contacts']);
   }
 }

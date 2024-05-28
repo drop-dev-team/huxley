@@ -12,7 +12,12 @@ class ChatListContainer extends StatefulWidget {
 class _ChatListContainerState extends State<ChatListContainer> {
   late StreamController<List<Map<String, dynamic>>> chatStreamController;
   List<Map<String, dynamic>> chatItems = [
-    // Add more items as required
+    {
+      'name': 'New Contact',
+      'message': 'Hey there! I\'m new here.',
+      'time': 'Now',
+      'unreadCount': 0,
+    }
   ];
 
   @override
@@ -79,7 +84,7 @@ class _ChatListContainerState extends State<ChatListContainer> {
                   message: item['message'],
                   time: item['time'],
                   unreadCount: item['unreadCount'],
-                  onTap: () => print("Tapped on item ${item['name']}"),
+                  onTap: () => print("Tapped on item ${item['name']}, ${index}"),
                 );
               },
             );

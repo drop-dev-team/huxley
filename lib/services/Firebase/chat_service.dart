@@ -13,6 +13,27 @@ class ChatService {
     await _firestore.collection('users').doc(userId).update({'isActive': isActive});
   }
 
+  Future<List<UserModel>> getCurrentActiveUsers(String currentUserId) async {
+    DocumentSnapshot<Map<String, dynamic>> currentUserDoc = await _firestore.collection('users').doc(currentUserId).get();
+    if (!currentUserDoc.exists) {
+      return [];
+    }
+
+    UserModel currentUser = UserModel.fromDatabaseJson(currentUserDoc.data()!);
+
+    List<UserModel> activeContacts = [];
+    for (String contactId in currentUser.contactUids) {
+      DocumentSnapshot<Map<String, dynamic>> contactDoc = await _firestore.collection('users').doc(contactId).get();
+      if (contactDoc.exists) {
+        UserModel contact = UserModel.fromDatabaseJson(contactDoc.data()!);
+        if (contact.isActive) {
+          activeContacts.add(contact);
+        }
+      }
+    }
+    return activeContacts;
+  }
+
 
   Future<void> createChatFields(String chatId, Map<String, dynamic> chatData) async {
     await _firestore.collection('chats').doc(chatId).set(chatData);

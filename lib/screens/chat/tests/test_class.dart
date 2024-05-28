@@ -22,6 +22,7 @@ class TestClass {
       profilePictureURL: currentUser.photoURL ?? "PHOTO URL",
       lastSeen: Timestamp.now(),
       chats: ["No Chats for the moment", "Dummy chats no chats to store"],
+      contactUids: [],
     );
 
     // Create or update user in Firestore
