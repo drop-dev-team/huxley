@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
@@ -24,28 +26,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Row(
             children: [
-              InkWell(
-                onTap: () {
-                  print('Edit pressed');
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Edit',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
+              IconButton(
+                  onPressed: () => {
+                    print("Navigate to add user window")
+                  },
+                  icon: const Icon(
+                      FontAwesomeIcons.userPlus,
+                    color: Colors.blueAccent,
+                  )
               ),
               const Spacer(),
               const CircleAvatar(
-                backgroundImage: NetworkImage("https://solairconference.com/data/files/big-brain.png")
+                  backgroundImage: NetworkImage(
+                      "https://solairconference.com/data/files/big-brain.png"
+                  ),
               ),
-              const SizedBox(width: 5,),
+              const SizedBox(
+                width: 5,
+              ),
               const Text(
                 'Ask Huxley',
                 style: TextStyle(

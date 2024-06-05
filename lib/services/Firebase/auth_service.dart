@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'database_service.dart';
 
 class AuthService {
   AuthService._privateConstructor();
@@ -27,7 +31,6 @@ class AuthService {
         return userCredential.user;
       }
     } catch (e) {
-      print(e.toString());
       return null;
     }
     return null;
@@ -43,7 +46,6 @@ class AuthService {
       );
       return userCredential.user;
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -57,7 +59,6 @@ class AuthService {
       );
       return userCredential.user;
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }
@@ -87,10 +88,50 @@ class AuthService {
 
   Future<bool> verifyOTP(String otp) async {
     return (await _auth.signInWithCredential(PhoneAuthProvider.credential(
-                verificationId: verificationID.value, smsCode: otp)) !=
-            null
+        verificationId: verificationID.value, smsCode: otp)) != null
         ? true
         : false
     );
+  }
+
+
+
+  Future<void> updateEmail(String email) async {
+    User? user = _auth.currentUser;
+    await user?.verifyBeforeUpdateEmail(email);
+  }
+
+  // Update user's password
+  Future<void> updatePassword(String password) async {
+    User? user = _auth.currentUser;
+    await user?.updatePassword(password);
+  }
+
+  // Update user's phone number
+  Future<void> updatePhoneNumber(String phoneNumber) async {
+    User? user = _auth.currentUser;
+    // Assuming phoneNumber is verified and formatted properly
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: '', smsCode: '');
+    await user?.updatePhoneNumber(credential);
+  }
+
+  // Update user's photo URL after uploading the file
+  Future<String> updatePhotoURL(File photo) async {
+    User? user = _auth.currentUser;
+    if (user == null) {
+      throw Exception("No user logged in");
+    }
+    // Upload the file and get the URL
+    String photoUrl = await DatabaseService.instance.uploadFile(photo);
+    // Update the user's photo URL in the authentication service
+    await user.updatePhotoURL(photoUrl);
+    // Return the URL for further use
+    return photoUrl;
+  }
+
+
+  Future<void> updateDisplayname(String displayname) async {
+    User? user = _auth.currentUser;
+    await user?.updateDisplayName(displayname);
   }
 }

@@ -80,7 +80,7 @@ class InputFieldWrapper extends StatelessWidget {
 
     if (_responsiveSizer.getCurrentPlatform(context) == 'Mobile' ||
         _responsiveSizer.getCurrentPlatform(context) == 'Tablet') {
-      return PhoneNumberInputContainer();
+      return PhoneNumberInputContainer(controller: textController.phoneNumberController,);
     } else {
       return InputTextFieldWidget(
         hintText: AppLocalizations.of(context)!.enterPhoneFieldText,

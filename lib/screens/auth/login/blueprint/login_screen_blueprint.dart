@@ -5,6 +5,8 @@ import 'package:huxley/screens/auth/login/controllers/text_editing_controller.da
 import 'package:huxley/screens/auth/login/widgets/hyper_link_routing_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../dynamic/layout/responsive_sizer.dart';
+import '../../../completition/email/checkers/user_state_checker.dart';
+import '../../../completition/email/main/completition_screen.dart';
 import '../../../controller/menu/navigation_menu.dart';
 import '../containers/phone_email_textfield_corpus_selector_container.dart';
 import '../controllers/auth_controller.dart';
@@ -19,10 +21,10 @@ class LogInScreenBluePrint extends StatefulWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
   final ResponsiveSizer responsiveSizer = ResponsiveSizer();
   final ScreenStateController screenStateController =
-      Get.find<ScreenStateController>();
+  Get.find<ScreenStateController>();
 
   LogInScreenBluePrint({super.key});
 
@@ -31,13 +33,17 @@ class LogInScreenBluePrint extends StatefulWidget {
 }
 
 class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
-  bool isSignUp = false; 
+  bool isSignUp = false;
   late final AuthController _authController;
+  late final TextEditingWidgetController controller;
+
 
   @override
   void initState() {
     super.initState();
-    _authController = Get.put(AuthController()); 
+    _authController = Get.find<AuthController>();
+    Get.put(TextEditingWidgetController());
+    controller = Get.find<TextEditingWidgetController>();
   }
 
   @override
@@ -69,64 +75,20 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               ContinueButtonWidget(
                 onPressed: () {
                   if (widget.screenStateController.isSignUp.value) {
-                    
-                    var controller = Get.find<TextEditingWidgetController>();  
-                    if (controller.confirmPasswordController?.text == controller.passwordController.text) {
-                      
-                      _authController.instance.signUpWithEmailAndPassword(
-                        controller.emailController.text,
-                        controller.passwordController.text,
-                      ).then((userCredential) {
-                        
-                        Get.offAll(() => const NavigationMenu());
-                      }).catchError((error) {
-                        
-                        Get.snackbar(
-                          "Error",
-                          AppLocalizations.of(context)!.errorSingUpWithEmailAndPassword,
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                        return null;  
-                      });
-                    } else {
-                      
-                      Get.snackbar(
-                        "Error",
-                        AppLocalizations.of(context)!.passwordMismatchError,
-                        snackPosition: SnackPosition.BOTTOM,
-                      );
-                    }
+                    _handleSignUp(context);
                   } else {
-                    
-                    var controller = Get.find<TextEditingWidgetController>();  
-                    _authController.instance.signInWithEmailAndPassword(
-                      controller.emailController.text,
-                      controller.passwordController.text,
-                    ).then((userCredential) {
-                      
-                      Get.offAll(() => const NavigationMenu());  
-                    }).catchError((error) {
-                      
-                      Get.snackbar(
-                        "Error",
-                        AppLocalizations.of(context)!.errorSignInEmailAndPassword,
-                        snackPosition: SnackPosition.BOTTOM,
-                      );
-                    });
+                    _handleSignIn(context);
                   }
                 },
-              )
+              ),
 
 
-
-              ,
               OrDividerWidget(),
               AuthButtonWrapperWidget(
                 onPressed: () {
                   _authController.signInWithGoogle(
                       onSuccess: () {
-                        Get.offAll(() =>
-                            const NavigationMenu()); 
+                        _navigateToHome(context);
                       },
                       onError: () {
                         Get.snackbar(
@@ -146,7 +108,7 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               ),
               SizedBox(height: widget.responsiveSizer.spacingSize(context)),
               AuthButtonWrapperWidget(
-                
+
                 onPressed: () => print("Sign in with Apple"),
                 icon: const Icon(FontAwesomeIcons.apple,
                     color: Colors.white, size: 28),
@@ -159,21 +121,82 @@ class _LogInScreenBluePrintState extends State<LogInScreenBluePrint> {
               SizedBox(height: widget.responsiveSizer.spacingSize(context)),
               HyperLinkRoutingWidget(
                 initialTextLeftSide:
-                    !widget.screenStateController.isSignUp.value
-                        ? AppLocalizations.of(context)!.dontHaveAnAccountText
-                        : AppLocalizations.of(context)!.haveAnAccountText,
+                !widget.screenStateController.isSignUp.value
+                    ? AppLocalizations.of(context)!.dontHaveAnAccountText
+                    : AppLocalizations.of(context)!.haveAnAccountText,
                 hyperLinkHintText: !widget.screenStateController.isSignUp.value
                     ? AppLocalizations.of(context)!.singUpText
                     : AppLocalizations.of(context)!.logInText,
-                onTap: () => setState(() {
-                  widget.screenStateController.isSignUp.value = !widget
-                      .screenStateController.isSignUp.value; 
-                }),
+                onTap: () =>
+                    setState(() {
+                      widget.screenStateController.isSignUp.value = !widget
+                          .screenStateController.isSignUp.value;
+                    }),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+
+  void _handleSignUp(BuildContext context) {
+    if (controller.confirmPasswordController?.text ==
+        controller.passwordController.text) {
+      _signUpWithEmailAndPassword(context);
+    } else {
+      _showErrorSnackbar(
+          context, AppLocalizations.of(context)!.passwordMismatchError);
+    }
+  }
+
+  void _handleSignIn(BuildContext context) {
+    _signInWithEmailAndPassword(context);
+  }
+
+  void _signUpWithEmailAndPassword(BuildContext context) {
+    _authController.signUpWithEmailAndPassword(
+        email: controller.emailController.text,
+        password: controller.passwordController.text,
+        onError: () =>
+        {
+        _showErrorSnackbar(context, AppLocalizations.of(context)!.errorSingUpWithEmailAndPassword)
+        },
+        onSuccess: () =>
+        {
+          _navigateToHome(context)
+        },
+        context: context
+    );
+  }
+
+  void _signInWithEmailAndPassword(BuildContext context) {
+    _authController.signInWithEmailAndPassword(
+      email: controller.emailController.text,
+      password: controller.passwordController.text,
+      onError: () =>
+      {
+      _showErrorSnackbar(context, AppLocalizations.of(context)!.errorSignInEmailAndPassword)
+    },
+      onSuccess: () =>
+      {
+        _navigateToHome(context)
+      },
+      context: context,
+
+    );
+  }
+
+  void _navigateToHome(BuildContext context) {
+    UserStateChecker().navigateOnFieldsFilled(context);
+  }
+
+  void _showErrorSnackbar(BuildContext context, String message) {
+    Get.snackbar(
+      "Error",
+      message,
+      snackPosition: SnackPosition.BOTTOM,
     );
   }
 }

@@ -10,6 +10,8 @@ class UserModel {
   final Timestamp? lastSeen;
   final List<String> chats;
   final List<String> contactUids;
+  final List<String> receivedFriendRequests;  // Users who have sent a friend request to this user
+  final List<String> sentFriendRequests;      // Users to whom this user has sent a friend request
 
   UserModel({
     required this.id,
@@ -21,6 +23,8 @@ class UserModel {
     required this.lastSeen,
     required this.chats,
     required this.contactUids,
+    this.receivedFriendRequests = const [],
+    this.sentFriendRequests = const [],
   });
 
   Map<String, dynamic> toMap() {
@@ -33,20 +37,25 @@ class UserModel {
       'profilePictureURL': profilePictureURL,
       'lastSeen': lastSeen,
       'chats': chats,
-      'contactUids': contactUids
+      'contactUids': contactUids,
+      'receivedFriendRequests': receivedFriendRequests,
+      'sentFriendRequests': sentFriendRequests,
     };
   }
 
   factory UserModel.fromDatabaseJson(Map<String, dynamic> json) {
     return UserModel(
-        id: json['id'],
-        username: json['username'],
-        email: json['email'],
-        phoneNumber: json['phoneNumber'],
-        isActive: json['isActive'],
-        profilePictureURL: json['profilePictureURL'],
-        lastSeen: json['lastSeen'],
-        chats: json["chats"],
-        contactUids: json['contacts']);
+      id: json['id'],
+      username: json['username'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      isActive: json['isActive'],
+      profilePictureURL: json['profilePictureURL'],
+      lastSeen: json['lastSeen'],
+      chats: json["chats"],
+      contactUids: json['contacts'],
+      receivedFriendRequests: json['receivedFriendRequests'] ?? [],
+      sentFriendRequests: json['sentFriendRequests'] ?? [],
+    );
   }
 }

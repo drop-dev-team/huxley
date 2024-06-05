@@ -12,7 +12,7 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
     // Bind to the AuthController's user observable
-    _authController.user.bindStream(_authController.instance.auth.authStateChanges());
+    _authController.user.bindStream(_authController.authStateChanges());
     ever(_authController.user, handleAuthChange);  // Listen to changes in the AuthController's user
   }
 
@@ -23,5 +23,9 @@ class UserController extends GetxController {
 
   void logout() async {
     _authController.logout(); // Delegate logout action to AuthController
+  }
+
+  void updateUserFields() {
+
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +14,6 @@ class AuthController extends GetxController {
   Rxn<User> user = Rxn<User>(); // Reactive nullable Firebase user
   var verificationID = ''.obs;
 
-  AuthService instance = AuthService.instance;
   @override
   void onInit() {
     super.onInit();
@@ -21,6 +22,10 @@ class AuthController extends GetxController {
       this.user.value = user;
       isUserLoggedIn(user != null); // Update login status based on user presence
     });
+  }
+
+  Stream<User?> authStateChanges() {
+    return _authService.auth.authStateChanges();
   }
 
   void signInWithGoogle({
@@ -52,29 +57,95 @@ class AuthController extends GetxController {
     }
   }
 
-  void signUpWithEmailAndPassword(String email, String password) async {
+  void signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+    required VoidCallback onSuccess,
+    required VoidCallback onError,
+    required BuildContext context,
+  }) async {
     isLoading(true);
     try {
       User? result = await _authService.signUpWithEmailAndPassword(email, password);
-      user.value = result;
+      if (result != null) {
+        user.value = result;
+        onSuccess();
+      } else {
+        onError();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        onError();
+        if (!context.mounted) return;
+        onError();
+      } else {
+        onError();
+        if (!context.mounted) return;
+        Get.snackbar(
+          "Signup Error",
+          "Failed to sign up: ${e.message}",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
     } catch (e) {
-      Get.snackbar("Signup Error", "Failed to sign up: $e");
+      onError();
+      if (!context.mounted) return;
+      Get.snackbar(
+        "Signup Error",
+        "Failed to sign up: $e",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } finally {
       isLoading(false);
     }
   }
 
-  void signInWithEmailAndPassword(String email, String password) async {
+
+  void signInWithEmailAndPassword({
+    required String email,
+    required String password,
+    required VoidCallback onSuccess,
+    required VoidCallback onError,
+    required BuildContext context,
+  }) async {
     isLoading(true);
     try {
       User? result = await _authService.signInWithEmailAndPassword(email, password);
-      user.value = result;
+      if (result != null) {
+        user.value = result;
+        onSuccess();
+      } else {
+        onError();
+      }
+    } on FirebaseAuthException catch (e) {
+      onError();
+      if (!context.mounted) return;
+      Get.snackbar(
+        "Sign In Error",
+        "Failed to sign in: ${e.message}",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } catch (e) {
-      Get.snackbar("Sign In Error", "Failed to sign in: $e");
+      onError();
+      if (!context.mounted) return;
+      Get.snackbar(
+        "Sign In Error",
+        "Failed to sign in: $e",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     } finally {
       isLoading(false);
     }
   }
+
 
   void signInWithPhoneNumber(String phoneNumber) async {
     isLoading(true);
@@ -113,4 +184,66 @@ class AuthController extends GetxController {
       isLoading(false);
     }
   }
+
+  Future<void> updateDisplaynameSafe(String displayname) async {
+    try {
+      await _authService.updateDisplayname(displayname);
+      Get.snackbar("Success", "Display name updated successfully!",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update display name: $e",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
+  void updateEmailSafe(String email) async {
+    try {
+      await _authService.updateEmail(email);
+      Get.snackbar("Success", "Email updated successfully!",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update email: $e",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
+  // Safely update user's password and show feedback
+  void updatePasswordSafe(String password) async {
+    try {
+      await _authService.updatePassword(password);
+      Get.snackbar("Success", "Password updated successfully!",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update password: $e",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
+  // Safely update user's phone number and show feedback
+  void updatePhoneNumberSafe(String phoneNumber) async {
+    try {
+      await _authService.updatePhoneNumber(phoneNumber);
+      Get.snackbar("Success", "Phone number updated successfully!",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update phone number: $e",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
+  // Safely update user's photo URL after uploading the photo and show feedback
+  Future<String> updatePhotoURLSafe(File photo) async {
+    try {
+      // Assuming _authService.updatePhotoURL now returns the URL of the uploaded photo
+      String photoUrl = await _authService.updatePhotoURL(photo);
+      Get.snackbar("Success", "Photo updated successfully!",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green, colorText: Colors.white);
+      return photoUrl; // Return the URL on success
+    } catch (e) {
+      Get.snackbar("Error", "Failed to update photo: $e",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+      return Future.error("Failed to update photo: $e"); // Return an error
+    }
+  }
+
 }
