@@ -1,0 +1,4 @@
+TODO: Generate a way to implement sms comunication and have a record of the conversation
+in Firestore implement a web chat as for an SMS chat
+
+Next: build for query with the messages

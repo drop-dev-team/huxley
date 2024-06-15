@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:huxley/services/Firebase/chat_service.dart';
 import '../containers/active_users_side_list.dart';
 import '../containers/app_bar_chat_container.dart'; // Assumes CustomAppBar is used here
 import '../containers/chat_list_container.dart';
-import '../tests/test_class.dart';
+import '../../../tests/test_class.dart';
 
 class ChatBlueprint extends StatefulWidget {
-  ChatBlueprint({super.key});
+  const ChatBlueprint({super.key});
 
   @override
   State<ChatBlueprint> createState() => _ChatBlueprintState();
 }
 
 class _ChatBlueprintState extends State<ChatBlueprint> {
+  final ChatService _chatService = ChatService();
   final TestClass _testClass = TestClass();  // Instance of TestClass
   bool _isSearchActive = false;  // Controls the display state of the search functionality
 
@@ -24,7 +26,7 @@ class _ChatBlueprintState extends State<ChatBlueprint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(56.0),
         child: CustomAppBar(),  // Your existing CustomAppBar
       ),
@@ -65,7 +67,7 @@ class _ChatBlueprintState extends State<ChatBlueprint> {
                     height: 100, // Height for ActiveUsersSideList
                     child: ActiveUsersSideList(),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: ChatListContainer(), // Main chat list container
                   ),
                 ],
@@ -75,7 +77,8 @@ class _ChatBlueprintState extends State<ChatBlueprint> {
       ),
       floatingActionButton: !_isSearchActive ? FloatingActionButton(  // Only show FAB when search is not active
         onPressed: () {
-          _testClass.creatingUser();
+          _chatService.createChatID("Test Chat", "test");
+          // _testClass.creatingUser();
         },
         tooltip: 'Add User',
         child: const Icon(Icons.add),

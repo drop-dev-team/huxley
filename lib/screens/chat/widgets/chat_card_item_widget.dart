@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:huxley/screens/chat/models/user/user_model.dart';
+
+import '../pages/chat_page/main/chat_main.dart';
 
 class ChatCardItem extends StatelessWidget {
   final String name;
   final String message;
   final String time;
   final int unreadCount;
-  final VoidCallback onTap;
 
   const ChatCardItem({
     super.key,
@@ -14,7 +16,6 @@ class ChatCardItem extends StatelessWidget {
     required this.message,
     required this.time,
     this.unreadCount = 0,
-    required this.onTap,
   });
 
   @override
@@ -45,7 +46,7 @@ class ChatCardItem extends StatelessWidget {
         }
       },
       child: InkWell(
-        onTap: onTap,  // Use the provided onTap function here
+        onTap: () => Get.to(()=> const ChatMain()),  // Use the provided onTap function here
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.grey[300],

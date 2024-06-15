@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -8,6 +10,7 @@ import 'database_service.dart';
 
 class AuthService {
   AuthService._privateConstructor();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static final AuthService instance = AuthService._privateConstructor();
   var verificationID = ''.obs;
@@ -133,5 +136,24 @@ class AuthService {
   Future<void> updateDisplayname(String displayname) async {
     User? user = _auth.currentUser;
     await user?.updateDisplayName(displayname);
+  }
+
+  Future<Type?> getUser({
+    required String userId,
+  }) async {
+    debugPrint('Fetching user with ID: $userId');
+    if (userId.isNotEmpty) {
+      final DocumentSnapshot userDoc = await _firestore.collection('users').doc(userId).get();
+      if (!userDoc.exists) {
+        debugPrint('No user found with ID: $userId');
+        return null;
+      }
+      Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+      debugPrint('User found: $userData');
+      // Assuming User.fromJson exists and is correctly implemented
+      return User;
+    } else {
+      throw Exception('Provided userId is empty. Please pass in a valid user ID.');
+    }
   }
 }

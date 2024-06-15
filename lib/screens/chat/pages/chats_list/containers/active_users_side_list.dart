@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/user/user_model.dart';
-import '../widgets/user_profiler_widget.dart';
+import '../../../models/user/user_model.dart';
+import '../../../widgets/user_profiler_widget.dart';
 
 class ActiveUsersSideList extends StatelessWidget {
   // Dummy data list of users

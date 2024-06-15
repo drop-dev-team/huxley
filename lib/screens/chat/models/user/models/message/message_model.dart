@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'message_type_enum.dart';
 
 
@@ -7,6 +6,8 @@ class MessageModel {
   final String messageId;       // Unique identifier for the message
   final String chatId;          // Identifier of the chat this message belongs to
   final String senderId;        // Identifier of the user who sent the message
+  final String senderDisplayName;
+  final String senderPhotoURL;
   final MessageType messageType;// Type of the message
   final String? text;           // Text content of the message, if any
   final String? imageUrl;       // URL of the image, if any
@@ -14,7 +15,9 @@ class MessageModel {
   final String? linkUrl;        // URL of the link, if any
   final Timestamp timestamp;    // Timestamp when the message was sent
 
-  MessageModel({
+  MessageModel( {
+    required this.senderDisplayName,
+    required this.senderPhotoURL,
     required this.messageId,
     required this.chatId,
     required this.senderId,
@@ -38,6 +41,8 @@ class MessageModel {
       'audioUrl': audioUrl,
       'linkUrl': linkUrl,
       'timestamp': timestamp,
+      'senderDisplayName' : senderDisplayName,
+      'senderPhotoURL' : senderPhotoURL
     };
   }
 
@@ -55,6 +60,8 @@ class MessageModel {
       audioUrl: json['audioUrl'],
       linkUrl: json['linkUrl'],
       timestamp: json['timestamp'] as Timestamp,
+      senderDisplayName: json['senderDisplayName'],
+      senderPhotoURL: json['senderPhotoURL'],
     );
   }
 }

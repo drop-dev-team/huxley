@@ -4,6 +4,7 @@ import 'package:huxley/screens/chat/main/chat_main.dart';
 import 'package:huxley/screens/search/main/search_main.dart';
 
 import '../../calendar/main/calendar_main.dart';
+import '../../chat/pages/chat_page/main/chat_main.dart';
 import '../../home/main/home_screen_main.dart';
 
 class NavigationController extends GetxController {
@@ -14,6 +15,6 @@ class NavigationController extends GetxController {
     const CalendarScreen(),
     const ChartScreen(),
     const SearchScreen(),
-    const ChatScreen()
+    const ChatScreen()//ChatMain()//ChatScreen()
   ];
 }
