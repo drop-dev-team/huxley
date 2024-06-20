@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
+
   final String id;
   final String username;
   final String? email;
@@ -10,8 +11,8 @@ class UserModel {
   final Timestamp? lastSeen;
   final List<String> chats;
   final List<String> contactUids;
-  final List<String> receivedFriendRequests;  // Users who have sent a friend request to this user
-  final List<String> sentFriendRequests;      // Users to whom this user has sent a friend request
+  final List<String> receivedFriendRequests;
+  final List<String> sentFriendRequests;      
 
   UserModel({
     required this.id,
@@ -52,7 +53,7 @@ class UserModel {
       isActive: json['isActive'],
       profilePictureURL: json['profilePictureURL'],
       lastSeen: json['lastSeen'],
-      chats: json["chats"],
+      chats: json['chats'],
       contactUids: json['contacts'],
       receivedFriendRequests: json['receivedFriendRequests'] ?? [],
       sentFriendRequests: json['sentFriendRequests'] ?? [],
