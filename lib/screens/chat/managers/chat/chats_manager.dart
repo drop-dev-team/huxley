@@ -3,7 +3,7 @@ import '../../widgets/chat_card_item_widget.dart'; // Import your ChatService cl
 
 class ChatsManager {
   static final ChatsManager _instance = ChatsManager._privateConstructor();
-  final ChatService _chatService = ChatService();  // Assuming ChatService is already implemented
+  final ChatService _chatService = ChatService(); // Assuming ChatService is already implemented
 
   // Private constructor for Singleton
   ChatsManager._privateConstructor();
@@ -16,12 +16,14 @@ class ChatsManager {
   /// Fetch user chats and convert them into a list of ChatCardItem
   Future<List<ChatCardItem>> getUserChats() async {
     List<Map<String, dynamic>> chatData = await _chatService.getUserChats();
-    return chatData.map((chat) {
-      return ChatCardItem(
-        name: chat['lastMessage'] ?? 'No messages yet',
-        message: chat['chatTitle'],
-        time: 'No messages yet',
-      );
-    }).toList();
+
+    return List.generate(chatData.length, (i) =>
+        ChatCardItem(
+          name: chatData[i]['chatTitle'] ?? 'No messages yet',
+          message: chatData[i]['lastMessage'] ?? 'No Message yet yet',
+          time: chatData[i]['createdAt'].toDate().toString().split(' ')[0],
+          itemIndex: i,
+        ),
+    );
   }
 }
