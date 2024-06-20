@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../managers/chat/chats_manager.dart';
 import '../../../widgets/chat_card_item_widget.dart';
 
@@ -33,18 +34,28 @@ class _ChatListContainerState extends State<ChatListContainer> {
           future: chatItemsFuture,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              print("Error: ${snapshot.error}");
+
               return const Center(
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.error, color: Colors.red, size: 40),
+                      Stack(
+                        alignment: Alignment.center,  // Ensures all children are centered in the stack
+                        children: [
+                          Icon(FontAwesomeIcons.cloud, color: Colors.black38, size: 40),
+                          Align(
+                            alignment: Alignment.center,  // Ensures this icon is centered on the cloud icon
+                            child: Icon(FontAwesomeIcons.exclamation, color: Colors.white, size: 25),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 20),
                       Text(
+                        // todo int (.arb files text and reference to app_localizations.dart file)
                         "Failed to fetch chats. Please pull down to refresh.",
-                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ],
