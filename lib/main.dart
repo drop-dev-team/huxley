@@ -8,6 +8,7 @@ import 'package:huxley/screens/auth/login/controllers/screen_state_controller.da
 import 'package:huxley/screens/auth/login/controllers/state_controller.dart';
 import 'package:huxley/screens/auth/login/main/login_main.dart';
 import 'package:huxley/screens/calendar/controllers/calendar_view_controller.dart';
+import 'package:huxley/screens/chat/controllers/chat_controller.dart';
 import 'package:huxley/screens/completition/email/blueprint/profile_completition_screen_blueprint.dart';
 import 'package:huxley/screens/completition/email/controllers/information_input_controller.dart';
 import 'package:huxley/screens/completition/email/controllers/page_state_controller.dart';
@@ -29,6 +30,7 @@ void main() async {
   Get.put(ProfileCompletionController());
   Get.put(UserController());
   Get.put(CalendarViewController());
+  Get.put(ChatController());
   Locale testLocale = const Locale('en', 'US');
   bool testMode = true;
   runApp(MyApp(locale: testLocale, testMode: testMode));
