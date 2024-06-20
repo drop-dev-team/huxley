@@ -49,7 +49,7 @@ class _ChatBlueprintState extends State<ChatBlueprint> {
               },
               decoration: InputDecoration(
                 hintText: 'Search...',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(32),
                   borderSide: BorderSide.none,
