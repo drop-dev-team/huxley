@@ -7,6 +7,7 @@ class ChatController {
   // Firestore instance
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final UserController _userController = Get.find<UserController>();
+  late List<Map<String, Map<String, dynamic>>> userChats;
 
 
   // Singleton setup
@@ -43,6 +44,8 @@ class ChatController {
         }
       }
     }
+
+    userChats = chatDetailsList;
 
     return chatDetailsList;
   }
