@@ -19,8 +19,11 @@ class TextMessage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 5.0, left: 8.0),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(message.senderPhotoURL),  
               radius: 20,
+              child: Image.network(
+                  message.senderPhotoURL,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         Flexible(
