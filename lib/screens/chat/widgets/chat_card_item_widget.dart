@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huxley/screens/chat/models/user/user_model.dart';
 
+import '../controllers/chat_controller.dart';
 import '../pages/chat_page/main/chat_main.dart';
 
 class ChatCardItem extends StatelessWidget {
@@ -9,13 +10,16 @@ class ChatCardItem extends StatelessWidget {
   final String message;
   final String time;
   final int unreadCount;
+  final ChatController _chatController = Get.find<ChatController>();
+  final int itemIndex;
 
-  const ChatCardItem({
+  ChatCardItem({
     super.key,
     required this.name,
     required this.message,
     required this.time,
     this.unreadCount = 0,
+    required this.itemIndex,
   });
 
   @override
@@ -38,9 +42,10 @@ class ChatCardItem extends StatelessWidget {
           child: Icon(Icons.archive, color: Colors.white),
         ),
       ),
-      onDismissed: (direction) {
+      onDismissed: (direction) async {
         if (direction == DismissDirection.startToEnd) {
-          print('Deleted $name');
+          // todo remove functionality from chats controller
+          await _chatController.userChats.removeAt(itemIndex);
         } else if (direction == DismissDirection.endToStart) {
           print('Archived $name');
         }
