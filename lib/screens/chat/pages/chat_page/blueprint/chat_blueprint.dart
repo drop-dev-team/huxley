@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../containers/app_bar_container.dart';
 import '../../../models/user/models/message/message_model.dart';
 import '../../../models/user/models/message/message_type_enum.dart';
 import '../containers/message_list_container.dart';
