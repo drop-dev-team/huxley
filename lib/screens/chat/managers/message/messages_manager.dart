@@ -39,8 +39,4 @@ class MessagesManager {
 
     return messageBuilder;
   }
-
-
-
-
 }
